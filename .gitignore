@@ -1,0 +1,22 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python internal caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# Local raw data (Keep the processed CSV for Streamlit deployment, but ignore giant raw files if needed)
+data/raw/
