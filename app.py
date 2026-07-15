@@ -44,7 +44,7 @@ st.markdown("""
     .neon-text-pink { color: #ff007a; font-weight: bold; }
     .neon-text-green { color: #00ff9d; font-weight: bold; }
 </style>
-""", unsafe_index=True)
+""", unsafe_allow_html=True)
 
 plt.style.use('dark_background')
 plt.rcParams.update({
@@ -62,7 +62,7 @@ def load_analytical_data():
     if not path.exists():
         return None
     data = pd.read_csv(path)
-    
+
     usd_90th = data['Size USD'].quantile(0.90)
     data['trader_tier'] = np.where(data['Size USD'] >= usd_90th, 'Whale', 'Retail')
     data['is_winning_trade'] = (data['net_pnl'] > 0).astype(int)
@@ -71,11 +71,10 @@ def load_analytical_data():
 df = load_analytical_data()
 
 if df is None:
-    st.error(" Processing Error: 'data/processed/analytics_base.csv' not detected. Please execute 'python src/pipeline.py' locally first.")
+    st.error("Processing Error: 'data/processed/analytics_base.csv' not detected. Please execute 'python src/pipeline.py' locally first.")
     st.stop()
 
-
-st.title("⚡ Hyperliquid Trade & Sentiment Analytics Engine")
+st.title(" Hyperliquid Trade & Sentiment Analytics Engine")
 st.markdown("### `Production-Grade Quantitative Research Framework // Primetrade.ai Hiring Review`")
 st.markdown("---")
 
@@ -106,14 +105,12 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.markdown("####  Regime Performance Mapping")
     
-
     regime_stats = filtered_df.groupby('sentiment_regime').agg(
         win_rate=('is_winning_trade', 'mean'),
         avg_net_pnl=('net_pnl', 'mean')
     ).reset_index()
     regime_stats['win_rate'] = regime_stats['win_rate'] * 100
     
-  
     order_list = ['Extreme Fear', 'Fear', 'Neutral', 'Greed', 'Extreme Greed']
     regime_stats['sentiment_regime'] = pd.Categorical(regime_stats['sentiment_regime'], categories=order_list, ordered=True)
     regime_stats = regime_stats.sort_values('sentiment_regime')
@@ -131,7 +128,7 @@ with col1:
     st.pyplot(fig)
 
 with col2:
-    st.markdown("####  Strategic Quantitative Findings")
+    st.markdown("#### ⚔️ Strategic Quantitative Findings")
     st.markdown(f"""
     <div class='quant-box'>
         <p><span class='neon-text-pink'>1. The Neutral Chop Warning:</span> Segmented calculations show that operating inside neutral environments offers an average win probability floor near <b>36.10%</b>. Capital friction dominates this zone.</p>
@@ -139,7 +136,6 @@ with col2:
         <p><span class='neon-text-pink'>3. Capital Scale Advantage:</span> Whales exhibit heavily asymmetric return curves, securing significantly higher absolute net capture margins compared to high-frequency retail allocations.</p>
     </div>
     """, unsafe_allow_html=True)
-
 
 st.markdown("---")
 st.markdown("#### Filtered Structural Data Ledger")
