@@ -75,7 +75,7 @@ if df is None:
     st.stop()
 
 st.title(" Hyperliquid Trade & Sentiment Analytics Engine")
-st.markdown("### `Production-Grade Quantitative Research Framework // Primetrade.ai Hiring Review`")
+st.markdown("### `Production-Grade Quantitative Research Framework`")
 st.markdown("---")
 
 
